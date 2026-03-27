@@ -1,0 +1,107 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.timeline h1 {
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Vertical line */
+.timeline-container::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  background: #38bdf8;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -2px;
+}
+
+/* Event blocks */
+.event {
+  padding: 20px 40px;
+  position: relative;
+  width: 50%;
+}
+
+/* Left side */
+.event:nth-child(odd) {
+  left: 0;
+  text-align: right;
+}
+
+/* Right side */
+.event:nth-child(even) {
+  left: 50%;
+}
+
+/* Content box */
+.content {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Circles */
+.event::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  background: #38bdf8;
+  border-radius: 50%;
+  top: 30px;
+}
+
+.event:nth-child(even)::after {
+  left: -10px;
+}
+
+/* Time text */
+.content span {
+  display: block;
+  margin-top: 10px;
+  color: #38bdf8;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .timeline-container::after {
+    left: 20px;
+  }
+
+  .event {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 20px;
+    text-align: left;
+  }
+
+  .event:nth-child(even) {
+    left: 0;
+  }
+
+  .event::after {
+    left: 10px;
+  }
+}

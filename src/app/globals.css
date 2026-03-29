@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/*
+  ============================================================
+  COLOR SYSTEM
+  TODO: Replace these values with your hackathon's brand colors
+  once your design is finalized.
+
+  Current palette: neutral white/gray/blue — easy to read,
+  works on dark backgrounds, no strong brand identity yet.
+
+  Tips:
+  --primary    → your main brand color (buttons, highlights)
+  --secondary  → accent / supporting color
+  --accent     → subtle glow / hover tints
+  ============================================================
+*/
+:root {
+  --background: #0a0a0f;       /* near-black page background */
+  --foreground: #e8e8f0;       /* off-white default text */
+  --primary: #6c7fff;          /* neutral indigo — easy to swap */
+  --secondary: #a78bfa;        /* soft purple accent */
+  --accent: #c4b5fd;           /* lighter purple for glows */
+  --border: rgba(255,255,255,0.08);  /* subtle card borders */
+  --card-bg: rgba(255,255,255,0.04); /* dark card background */
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25%       { transform: translateY(-20px) translateX(10px); }
+  50%       { transform: translateY(0) translateX(20px); }
+  75%       { transform: translateY(20px) translateX(10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+@keyframes blob {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(30px, -50px) scale(1.1); }
+  66%  { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-float       { animation: float 15s ease-in-out infinite; }
+.animate-pulse-slow  { animation: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-blob        { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--secondary), var(--accent));
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(108, 127, 255, 0.3);
+  color: #fff;
+}
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+

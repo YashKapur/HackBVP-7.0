@@ -1,0 +1,20 @@
+"use client";
+
+import { useScroll } from "framer-motion";
+import { useRef } from "react";
+import { EventCardGrid } from "@/components/EventCard";
+
+export default function EventsPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div
+      ref={containerRef}
+      className="min-h-screen flex items-center justify-center py-20"
+    >
+      <div className="w-full max-w-6xl px-4">
+        <EventCardGrid />
+      </div>
+    </div>
+  );
+}

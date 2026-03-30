@@ -2,25 +2,62 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaHome, FaLaptopCode, FaCalendarAlt, FaUsers, FaHandshake } from "react-icons/fa";
-import { FaXTwitter, FaInstagram, FaLinkedin, FaGithub, FaDiscord } from "react-icons/fa6";
+import {
+  FaHome,
+  FaLaptopCode,
+  FaCalendarAlt,
+  FaUsers,
+  FaHandshake,
+  FaUserTie,
+  FaQuestionCircle,
+} from "react-icons/fa";
+import {
+  FaXTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaGithub,
+  FaDiscord,
+  FaUsersViewfinder,
+} from "react-icons/fa6";
 
 const navItems = [
   // TODO: Update labels and paths to match your actual pages
-  { icon: <FaHome className="w-6 h-6" />,       label: "HOME",      path: "/" },
-  { icon: <FaLaptopCode className="w-6 h-6" />, label: "HACKATHON", path: "/hackathon" },
-  { icon: <FaCalendarAlt className="w-6 h-6" />,label: "EVENTS",    path: "/events" },
-  { icon: <FaUsers className="w-6 h-6" />,      label: "TEAM",      path: "/team" },
-  { icon: <FaHandshake className="w-6 h-6" />,  label: "SPONSORS",  path: "/sponsors" },
+  { icon: <FaHome className="w-6 h-6" />, label: "HOME", path: "/" },
+  {
+    icon: <FaLaptopCode className="w-6 h-6" />,
+    label: "HACKATHON",
+    path: "/hackathon",
+  },
+  {
+    icon: <FaCalendarAlt className="w-6 h-6" />,
+    label: "EVENTS",
+    path: "/events",
+  },
+  {
+    icons: <FaUsers className="w-6 h-6" />,
+    label: "JUDGES",
+    path: "/judges",
+  },
+  { icon: <FaUsers className="w-6 h-6" />, label: "TEAM", path: "/team" },
+  {
+    icon: <FaHandshake className="w-6 h-6" />,
+    label: "SPONSORS",
+    path: "/sponsors",
+  },
+  {
+    icons: <FaUsers className="w-6 h-6" />,
+    label: "FAQ",
+    path: "/FAQ",
+  },
 ];
 
 const socialItems = [
   // TODO: Replace # with your actual social media URLs
-  { icon: <FaXTwitter className="w-5 h-5" />,  url: "#" },
+  { icon: <FaXTwitter className="w-5 h-5" />, url: "#" },
   { icon: <FaInstagram className="w-5 h-5" />, url: "#" },
-  { icon: <FaLinkedin className="w-5 h-5" />,  url: "#" },
-  { icon: <FaGithub className="w-5 h-5" />,    url: "#" },
-  { icon: <FaDiscord className="w-5 h-5" />,   url: "#" },
+  { icon: <FaLinkedin className="w-5 h-5" />, url: "#" },
+  { icon: <FaGithub className="w-5 h-5" />, url: "#" },
+  { icon: <FaDiscord className="w-5 h-5" />, url: "#" },
 ];
 
 export function FloatingSidebars() {
@@ -51,7 +88,9 @@ export function FloatingSidebars() {
                 }`}
               >
                 <span className="mb-1.5">{item.icon}</span>
-                <span className="text-xs font-medium text-center">{item.label}</span>
+                <span className="text-xs font-medium text-center">
+                  {item.label}
+                </span>
               </Link>
             ))}
           </nav>
@@ -72,11 +111,15 @@ export function FloatingSidebars() {
                     : "text-slate-400 hover:bg-white/5 hover:text-white"
                 }`}
               >
-                <span className={`text-xl transition-transform group-hover:scale-110 ${isActive(item.path) ? "text-indigo-400" : ""}`}>
+                <span
+                  className={`text-xl transition-transform group-hover:scale-110 ${isActive(item.path) ? "text-indigo-400" : ""}`}
+                >
                   {item.icon}
                 </span>
-                <span className={`text-[10px] font-medium mt-1 transition-colors ${isActive(item.path) ? "text-indigo-300" : "text-slate-400 group-hover:text-white"}`}>
-                  {item.label.split(' ')[0]}
+                <span
+                  className={`text-[10px] font-medium mt-1 transition-colors ${isActive(item.path) ? "text-indigo-300" : "text-slate-400 group-hover:text-white"}`}
+                >
+                  {item.label.split(" ")[0]}
                 </span>
               </Link>
             ))}
@@ -86,7 +129,9 @@ export function FloatingSidebars() {
 
       <style jsx global>{`
         @media (max-width: 1023px) {
-          body { padding-bottom: 6rem !important; }
+          body {
+            padding-bottom: 6rem !important;
+          }
           .backdrop-blur-2xl {
             -webkit-backdrop-filter: blur(24px) saturate(1.8);
             backdrop-filter: blur(24px) saturate(1.8);

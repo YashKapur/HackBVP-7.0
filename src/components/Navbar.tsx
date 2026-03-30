@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 export function Navbar() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -15,9 +15,10 @@ export function Navbar() {
 
   const navItems = [
     // TODO: Update names and hrefs to match your actual pages / sections
-    { name: "Home",     href: "/" },
-    { name: "Events",   href: "/events" },
-    { name: "Team",     href: "/team" },
+    { name: "Home", href: "/" },
+    { name: "Events", href: "/events" },
+    { name: "Team", href: "/team" },
+    { name: "Judges", href: "/judges" },
     { name: "Sponsors", href: "/sponsors" },
   ];
 
@@ -30,7 +31,6 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-
         {/* Logo + Name */}
         <Link href="/" className="flex items-center gap-3 group">
           {/* TODO: Replace /logo.png with your own logo file in /public */}
@@ -62,8 +62,8 @@ export function Navbar() {
           href="#register"
           className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-200"
           style={{ background: "var(--primary)" }}
-          onMouseEnter={e => (e.currentTarget.style.opacity = "0.85")}
-          onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
         >
           {/* TODO: Replace button label */}
           Register Now
@@ -75,9 +75,15 @@ export function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-          <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+          />
         </button>
       </div>
 

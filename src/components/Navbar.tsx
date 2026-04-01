@@ -180,7 +180,7 @@ export function Navbar() {
                   </Link>
                 ))}
                 <Link
-                  href="#register"
+                  href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
                   onClick={() => setMenuOpen(false)}
                   className="mt-1 mx-1 mb-1 px-4 py-3.5 rounded-full text-center text-[15px] font-semibold text-white"
                   style={{ background: "var(--primary)", boxShadow: "0 0 24px rgba(207,42,68,0.45)" }}

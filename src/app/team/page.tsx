@@ -1,20 +1,12 @@
 "use client";
-
-import { useScroll } from "framer-motion";
-import { useRef } from "react";
-import { TeamCardGrid } from "@/components/TeamCard";
+import { TeamCardGrid } from "../../components/TeamCard";
+import { AnimatedBackground } from "../../components/AnimatedBackground";
 
 export default function TeamPage() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div
-      ref={containerRef}
-      className="min-h-screen flex items-center justify-center py-20"
-    >
-      <div className="w-full max-w-6xl px-4">
-        <TeamCardGrid />
-      </div>
+    <div className="relative min-h-screen pt-16">
+      <AnimatedBackground />
+      <TeamCardGrid />
     </div>
   );
 }

@@ -95,7 +95,7 @@ export function Hackathon() {
             </button>
             {/* TODO: Update href to your hackathon detail page */}
             <Link
-              href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge"
+              href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
               className="px-8 py-3.5 rounded-full font-bold border transition-all duration-200 hover:bg-white/5"
               style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
             >

@@ -117,56 +117,42 @@ export function Hero() {
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
 
           {/* Eyebrow badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-sm font-medium mb-8"
-            style={{ borderColor: "var(--border)", color: "var(--accent)", background: "var(--card-bg)" }}
-          >
-            {/* TODO: Replace badge text — e.g. "Applications Open · Season 12" */}
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--primary)" }} />
-            Hack@BVP 7.0
-          </motion.div>
+         <motion.div
+  initial={{ opacity: 0, y: 16 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+  className="inline-flex items-center gap-3 px-6 py-2 rounded-full border text-base font-medium mb-11"
+  style={{ borderColor: "var(--border)", color: "var(--accent)", background: "var(--card-bg)" }}
+>
+  <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--primary)" }} />
+  Hack@BVP 7.0
+</motion.div>
 
-          {/* Main headline
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-4 leading-none"
-        >
-          {/* TODO: Replace with your hackathon / event name
-          HackBVP 7.0
-        </motion.h1> */}
+{/* Typewriter line */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.6, delay: 0.3 }}
+  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-11 min-h-20 flex items-center justify-center"
+>
+  <div className="flex items-center justify-center gap-5">
+    <div className="relative h-16 w-16 sm:h-20 sm:w-20">
+      <Image src="/logo.png" alt="HackBVP logo" fill className="object-contain" priority />
+    </div>
+    <TypewriterWords words={typewriterWords} />
+  </div>
+</motion.div>
 
-          {/* Typewriter line */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 min-h-14 flex items-center justify-center"
-          >
-            <div className="flex items-center justify-center gap-4">
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14">
-                {/* Place your transparent PNG at `public/logo.png` */}
-                <Image src="/logo.png" alt="HackBVP logo" fill className="object-contain" priority />
-              </div>
-              <TypewriterWords words={typewriterWords} />
-            </div>
-          </motion.div>
-
-          {/* Subtext */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-            style={{ color: "rgba(232,232,240,0.6)" }}
-          >
-            {/* TODO: Replace with your event tagline / one-liner description */}
-            Build Beyond Boundaries.
-          </motion.p>
+{/* Subtext */}
+<motion.p
+  initial={{ opacity: 0, y: 16 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, delay: 0.4 }}
+  className="text-2xl md:text-3xl max-w-3xl mx-auto mb-14 leading-relaxed"
+  style={{ color: "rgba(232,232,240,0.6)" }}
+>
+  Build Beyond Boundaries.
+</motion.p>
         </div>
       </div>
     </section>

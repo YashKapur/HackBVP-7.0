@@ -77,7 +77,7 @@ export function Hero() {
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
                 <Link
-                  href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
+                  href="/hackathon"
                   className="w-full sm:w-auto text-center px-7 py-3 rounded-full font-bold text-white text-sm sm:text-base transition-all duration-200 hover:opacity-90 hover:scale-[1.02] shadow-lg"
                   style={{ background: "var(--primary)", boxShadow: "0 0 24px rgba(207,42,68,0.45)" }}
                 >

@@ -126,7 +126,7 @@ export function Hero() {
           >
             {/* TODO: Replace badge text — e.g. "Applications Open · Season 12" */}
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--primary)" }} />
-            THEME???
+            Hack@BVP 7.0
           </motion.div>
 
           {/* Main headline
@@ -165,7 +165,7 @@ export function Hero() {
             style={{ color: "rgba(232,232,240,0.6)" }}
           >
             {/* TODO: Replace with your event tagline / one-liner description */}
-            Tagline maybe?????
+            Build Beyond Boundaries.
           </motion.p>
         </div>
       </div>

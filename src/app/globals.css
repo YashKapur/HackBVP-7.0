@@ -16,13 +16,16 @@
   ============================================================
 */
 :root {
-  --background: #0a0a0f;       /* near-black page background */
-  --foreground: #e8e8f0;       /* off-white default text */
-  --primary: #6c7fff;          /* neutral indigo — easy to swap */
-  --secondary: #a78bfa;        /* soft purple accent */
-  --accent: #c4b5fd;           /* lighter purple for glows */
-  --border: rgba(255,255,255,0.08);  /* subtle card borders */
-  --card-bg: rgba(255,255,255,0.04); /* dark card background */
+  --background: #0F1217;       /* deep dark background */
+  --bg-secondary: #161B24;     /* slightly lighter dark */
+  --foreground: #DAD9D5;       /* warm off-white text */
+  --primary: #CF2A44;          /* HackBVP red — main brand */
+  --primary-dark: #AF263C;     /* deeper red for hover states */
+  --secondary: #1E8C7A;        /* teal accent */
+  --accent: #1E8C7A;           /* teal for glows/highlights */
+  --muted: #5A6070;            /* muted gray */
+  --border: rgba(218,217,213,0.08);  /* subtle warm borders */
+  --card-bg: rgba(22,27,36,0.85);    /* dark card background */
 }
 
 /* Custom Animations */
@@ -58,7 +61,7 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar       { width: 6px; }
-::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-track { background: #0F1217; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, var(--primary), var(--secondary));
   border-radius: 4px;
@@ -75,6 +78,12 @@ body {
 }
 
 ::selection {
-  background: rgba(108, 127, 255, 0.3);
+  background: rgba(207,42,68,0.3);
   color: #fff;
 }
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+

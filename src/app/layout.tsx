@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Raleway } from "next/font/google";
 import "./globals.css";
-import PreloaderWrapper from "@/components/PreloaderWrapper";
-import { FloatingSidebars } from "@/components/FloatingSidebars";
+import PreloaderWrapper from "../components/PreloaderWrapper";
+import { Navbar } from "../components/Navbar";
+import { StarryBackground } from "../components/StarryBackground";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter", weight: ["400", "500", "600"] });
 const poppins = Poppins({ subsets: ["latin"], display: "swap", variable: "--font-poppins", weight: ["600", "700", "800"] });
@@ -10,7 +11,7 @@ const raleway = Raleway({ subsets: ["latin"], display: "swap", variable: "--font
 
 export const metadata: Metadata = {
   // TODO: Replace with your event/org name and tagline
-  title: "YOUR EVENT NAME | YOUR TAGLINE",
+  title: "HackBVP 7.0",
   // TODO: Replace with your event description
   description: "YOUR EVENT DESCRIPTION — dates, location, etc.",
   keywords: [
@@ -21,8 +22,8 @@ export const metadata: Metadata = {
   ],
   icons: {
     // TODO: Drop your logo as logo.png into the /public folder
-    icon: "/logo.svg",
-    apple: "/logo.svg",
+    icon: "/logo.ico",
+    apple: "/logo.ico",
   },
 };
 
@@ -31,10 +32,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${raleway.variable} scroll-smooth`}>
       <body className="bg-black text-gray-100 antialiased overflow-x-hidden">
         <PreloaderWrapper>
-          <FloatingSidebars />
+          <Navbar />
           {children}
         </PreloaderWrapper>
       </body>
     </html>
   );
 }
+
+

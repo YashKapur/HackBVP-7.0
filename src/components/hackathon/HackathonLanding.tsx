@@ -38,7 +38,7 @@ export function HackathonLanding() {
             className={`text-base md:text-xl max-w-3xl mx-auto mb-6 sm:mb-8 ${spaceGrotesk.className}`}
             style={{ color: "rgba(218,217,213,0.7)" }}
           >
-            Your hackathon tagline goes here
+            Build Beyond Boundaries.
           </motion.p>
 
           <motion.div

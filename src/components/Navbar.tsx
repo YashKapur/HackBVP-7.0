@@ -90,7 +90,7 @@ export function Navbar() {
               </div>
 
               <Link
-                href="#register"
+                href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 shadow-[0_0_20px_rgba(207,42,68,0.30)]"
                 style={{ background: "var(--primary)" }}
               >

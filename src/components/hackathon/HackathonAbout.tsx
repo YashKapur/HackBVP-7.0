@@ -37,7 +37,7 @@ export function HackathonAbout() {
 
             <div className="backdrop-blur-sm p-8 rounded-2xl border" style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}>
                 <p className="text-sm sm:text-lg leading-relaxed mb-8" style={{ color: "rgba(218,217,213,0.7)" }}>
-                HackBVP@7.0 is an intensive two-phase innovation hackathon that brings together bright student minds to ideate, prototype, and build impactful tech solutions in a high-energy, mentor-driven environment. Whether you're passionate about AI, full-stack development, cybersecurity, or have a bold idea, this is your stage.
+                HackBVP@7.0 is an intensive two-phase innovation hackathon that brings together bright student minds to ideate, prototype, and build impactful tech solutions in a high-energy, mentor-driven environment. Whether you are passionate about AI, full-stack development, cybersecurity, or have a bold idea, this is your stage.
               </p>
               <p className="text-sm sm:text-lg leading-relaxed mb-8" style={{ color: "rgba(218,217,213,0.7)" }}>
                 it begins with an online qualifier where teams showcase creativity and problem-solving skills, followed by an offline finale at Bharati Vidyapeeth College of Engineering, where finalists build and pitch their solutions to industry experts. With multiple tracks, mentorship, and exciting rewards, HackBVP@7.0 is a launchpad for future innovators.

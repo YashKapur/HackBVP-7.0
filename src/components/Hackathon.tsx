@@ -90,6 +90,7 @@ export function Hackathon() {
             <button
               className="px-8 py-3.5 rounded-full font-bold text-white transition-all duration-200 hover:opacity-90"
               style={{ background: "var(--primary)" }}
+              onClick={() => window.open("https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge", "_blank")}
             >
               Register Now
             </button>

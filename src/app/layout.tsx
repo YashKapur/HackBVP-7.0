@@ -4,6 +4,7 @@ import "./globals.css";
 import PreloaderWrapper from "../components/PreloaderWrapper";
 import { Navbar } from "../components/Navbar";
 import { StarryBackground } from "../components/StarryBackground";
+import { Footer } from "../components/Footer";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter", weight: ["400", "500", "600"] });
 const poppins = Poppins({ subsets: ["latin"], display: "swap", variable: "--font-poppins", weight: ["600", "700", "800"] });
@@ -16,9 +17,9 @@ export const metadata: Metadata = {
   description: "YOUR EVENT DESCRIPTION — dates, location, etc.",
   keywords: [
     // TODO: Add your own SEO keywords
-    "Your Keyword 1",
-    "Your Keyword 2",
-    "Your Keyword 3",
+    "Hackathon",
+    "Tech Event",
+    "Coding Competition",
   ],
   icons: {
     // TODO: Drop your logo as logo.png into the /public folder
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           {children}
         </PreloaderWrapper>
+        <Footer/>
       </body>
     </html>
   );

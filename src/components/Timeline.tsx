@@ -1,343 +1,129 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useRef } from "react";
 
-type TimelineStatus = "completed" | "live" | "upcoming";
-
-interface TimelineEvent {
-  day: string;        // e.g. "Day 1" or "October 8"
-  time: string;       // e.g. "09:00 AM"
+type TimelineEvent = {
+  day: string;
+  time: string;
   title: string;
   description: string;
-  status: TimelineStatus; // controls the dot color
-  location?: string;  // optional venue/room
-}
-
-// ─── STATUS CONFIG ────────────────────────────────────────────────────────────
-const statusConfig: Record<TimelineStatus, { dot: string; label: string }> = {
-  completed: { dot: "bg-gray-500", label: "Done" },
-  live: { dot: "bg-green-400 animate-pulse", label: "Live" },
-  upcoming: { dot: "", label: "Upcoming" }, // uses CSS var
+  status: "completed" | "live" | "upcoming";
+  location?: string;
 };
 
-// ─── SINGLE EVENT CARD ────────────────────────────────────────────────────────
-function TimelineCard({ event, index, isLast }: { event: TimelineEvent; index: number; isLast: boolean }) {
-  const cfg = statusConfig[event.status];
+// Simplified sample data
+const schedule: { day: string; events: TimelineEvent[] }[] = [
+  {
+    day: "Day 1 — 09 April 2026",
+    events: [
+      { day: "Day 1", time: "08:00 AM", title: "Registration Opens", description: "Participants check-in.", status: "completed" },
+      { day: "Day 1", time: "11:00 AM", title: "Hack Begins", description: "Ideation phase starts.", status: "live" },
+      { day: "Day 1", time: "05:00 PM", title: "Round 1 Judging", description: "Panel evaluation.", status: "upcoming" },
+    ],
+  },
+  {
+    day: "Day 2 — 15 April 2026",
+    events: [
+      { day: "Day 2", time: "09:00 AM", title: "Mentorship Round 2", description: "Code review with mentors.", status: "upcoming" },
+      { day: "Day 2", time: "06:00 PM", title: "Final Pitch", description: "Top 10 teams pitch.", status: "upcoming" },
+    ],
+  }
+];
+
+function TimelineCard({ event, index }: { event: TimelineEvent; index: number }) {
+  const cardRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: cardRef, offset: ["start 80%", "end 20%"] });
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.3, 1]);
+  const bgActive = useTransform(scrollYProgress, [0, 0.5], ["var(--card-bg)", "rgba(207,42,68,0.1)"]);
+  const borderActive = useTransform(scrollYProgress, [0, 0.5], ["var(--border)", "var(--primary)"]);
+
+  // For the dot highlight
+  const dotScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.5]);
+  const dotColor = useTransform(scrollYProgress, [0, 0.5], ["#333", "var(--primary)"]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="relative flex gap-6"
-    >
-      {/* Left: dot + vertical line */}
-      <div className="flex flex-col items-center">
-        <div
-          className={`w-4 h-4 rounded-full mt-1 flex-shrink-0 border-2 border-[#0F1217] ${event.status === "upcoming" ? "" : cfg.dot
-            }`}
-          style={event.status === "upcoming" ? { background: "var(--primary)", boxShadow: "0 0 8px var(--primary)" } : {}}
+    <div ref={cardRef} className="relative flex gap-6 mb-12 w-full">
+      {/* Scroll-Spy Dot */}
+      <div className="flex flex-col items-center absolute left-0 sm:left-1/2 sm:-ml-2.5 top-0 h-full z-10 w-5">
+        <motion.div
+          style={{ scale: dotScale, background: dotColor }}
+          className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-[#0F1217] shadow-xl mt-4 z-20"
         />
-        {!isLast && <div className="w-px flex-1 mt-2" style={{ background: "var(--border)" }} />}
       </div>
 
-      {/* Right: card */}
-      <div
-        className="mb-8 flex-1 rounded-xl p-5 border transition-all duration-200 hover:border-white/15 group"
-        style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}
+      {/* Card Body - Alternating layout for desktop */}
+      <motion.div 
+        style={{ scale, opacity, borderColor: borderActive, background: bgActive }}
+        className={`flex-1 rounded-2xl p-6 md:p-8 border shadow-lg ml-8 sm:ml-0 ${index % 2 === 0 ? "sm:mr-[50%] sm:pr-12 md:pr-16" : "sm:ml-[50%] sm:pl-12 md:pl-16"} transition-shadow duration-300 hover:shadow-2xl`}
       >
-        {/* Header row */}
-        <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-widest mb-1 block" style={{ color: "var(--primary)" }}>
-              {event.day}
-            </span>
-            <h3 className="text-base font-bold text-white group-hover:text-[var(--accent)] transition-colors">
-              {event.title}
-            </h3>
-          </div>
-          {/* Time + status badges */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <span className="text-xs px-2.5 py-1 rounded-full border font-medium" style={{ borderColor: "var(--border)", color: "rgba(232,232,240,0.5)" }}>
-              {event.time}
-            </span>
-            <span className={`text-xs px-2.5 py-1 rounded-full font-semibold flex items-center gap-1.5 ${event.status === "live" ? "bg-green-500/15 text-green-400" :
-              event.status === "completed" ? "bg-gray-500/15 text-gray-400" :
-                "text-white/60"
-              }`}
-              style={event.status === "upcoming" ? { background: "rgba(207,42,68,0.12)", color: "var(--accent)" } : {}}
-            >
-              {event.status === "live" && <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />}
-              {cfg.label}
-            </span>
-          </div>
-        </div>
-
-        <p className="text-sm leading-relaxed" style={{ color: "rgba(232,232,240,0.55)" }}>
-          {event.description}
-        </p>
-
-        {event.location && (
-          <p className="text-xs mt-2 flex items-center gap-1" style={{ color: "rgba(232,232,240,0.35)" }}>
-            📍 {event.location}
-          </p>
-        )}
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── DAY GROUP ────────────────────────────────────────────────────────────────
-function DayGroup({ day, events }: { day: string; events: TimelineEvent[] }) {
-  return (
-    <div className="mb-12">
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="inline-flex items-center gap-3 mb-6 px-4 py-1.5 rounded-full border text-sm font-bold"
-        style={{ borderColor: "var(--border)", color: "var(--foreground)", background: "var(--card-bg)" }}
-      >
-        <span className="w-2 h-2 rounded-full" style={{ background: "var(--primary)" }} />
-        {day}
+        <span className="text-sm font-bold uppercase tracking-widest mb-2 block" style={{ color: "var(--primary)" }}>{event.time}</span>
+        <h3 className="text-xl md:text-2xl font-black text-white mb-3">{event.title}</h3>
+        <p className="text-base leading-relaxed" style={{ color: "rgba(232,232,240,0.7)" }}>{event.description}</p>
+        {event.location && <p className="text-sm mt-4 font-mono font-medium" style={{ color: "var(--secondary)" }}>📍 {event.location}</p>}
       </motion.div>
-
-      <div>
-        {events.map((event, i) => (
-          <TimelineCard key={i} event={event} index={i} isLast={i === events.length - 1} />
-        ))}
-      </div>
     </div>
   );
 }
 
-// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
-const Timeline = () => {
+export default function Timeline() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // High-performance scroll tracking for the vertical line
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
 
-  /*
-    ============================================================
-    TODO: Replace all entries below with your actual schedule.
-
-    Each event has:
-      day         → "Day 1", "Day 2", or actual date like "Oct 8"
-      time        → "09:00 AM" — 12hr or 24hr, your choice
-      title       → name of the session / activity
-      description → 1-2 sentence description of what happens
-      status      → "completed" | "live" | "upcoming"
-                    Set "live" for the current event on the day-of
-                    Set "completed" for past events
-                    Set "upcoming" for future events
-      location    → optional — room name, stage, or "Online"
-
-    Group events by day. Add as many days and events as you need.
-    ============================================================
-  */
-
-  const schedule: { day: string; events: TimelineEvent[] }[] = [
-    {
-      day: "Pre-Event",
-      events: [
-        {
-          day: "From 1st April 2026",
-          time: "11:30 PM",
-          title: "Registration Opens",
-          description: "Participants can register and form teams on the HackerRank portal.",
-          status: "live",
-          location: " HackerRank Portal",  // TODO: update or remove
-        },
-        {
-          day: "Till 6th April 2026",
-          time: "11:30 PM",
-          title: "Abstract Submission",
-          description: "Teams submit a 1-page abstract outlining their proposed solution.",
-          status: "upcoming",
-          location: " HackerRank Portal",  // TODO: update or remove
-        }
-      ]// Use "Pre-Event" for activities before the main event days
-    },
-    {
-      day: "Day 1 — 09 April 2026",
-      events: [
-        {
-          day: "Day 1",
-          time: "08:00 AM - 11:00 AM",
-          title: "Round 2: Project Development",
-          description: "Teams work on building their projects for Round 2.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 1",
-          time: "11:00 AM - 12:30 PM",
-          title: "Mentorship Round 1",
-          description: "Participants receive guidance and feedback from mentors.",
-          status: "upcoming",
-          location: "Discord Channels",  // TODO: update if mentorship happens in-person or on a different platform
-        },
-        {
-          day: "Day 1",
-          time: "12:30 PM - 01:30 PM",
-          title: "Lunch Break",
-          description: "Participants may take a break and have lunch.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 1",
-          time: "03:00 PM - 04:00 PM",
-          title: "Fun Games & Activities",
-          description: "Interactive games and activities to refresh participants.",
-          status: "upcoming",
-          location: "Discord Server",  // TODO: update if activities happen in-person or on a different platform
-        },
-        {
-          day: "Day 1",
-          time: "05:00 PM",
-          title: "Judging Round (Round 2)",
-          description: "Evaluation by multiple panels. Top 40 teams will be selected.",
-          status: "upcoming",
-          location: "Discord Channels",  // TODO: update if judging happens in-person or on a different platform
-        },
-        {
-          day: "Day 1",
-          time: "08:00 PM",
-          title: "Day 1 Wrap-up & Results",
-          description: "End of Day 1 with announcement of shortlisted teams.",
-          status: "upcoming",
-        },
-      ],
-    },
-    {
-      day: "Day 2 — 15 April 2026",
-      events: [
-        {
-          day: "Day 2",
-          time: "08:00 AM",
-          title: "Team Arrival",
-          description: "Teams arrive at the venue and prepare for the next rounds.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 2",
-          time: "08:30 AM",
-          title: "Reporting & Check-in",
-          description: "Participant verification and check-in process.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 2",
-          time: "09:00 AM",
-          title: "Inauguration Ceremony",
-          description: "Official opening ceremony with welcome address and briefing.",
-          status: "upcoming",
-          location: "BVIMR Auditorium",
-        },
-        {
-          day: "Day 2",
-          time: "10:30 AM",
-          title: "Round 3 Begins",
-          description: "Selected teams proceed to Round 3 and continue development.",
-          status: "upcoming",
-          location: "Library F Block",
-        },
-        {
-          day: "Day 2",
-          time: "01:00 PM - 02:00 PM",
-          title: "Mentorship Round 2 + Judging",
-          description: "Mentors provide final guidance alongside evaluation.",
-          status: "upcoming",
-          location: "Library F Block",  // TODO: update if mentorship happens in-person or on a different platform
-        },
-        {
-          day: "Day 2",
-          time: "02:00 PM - 03:00 PM",
-          title: "Lunch Break",
-          description: "Lunch for all participants. Lunch will be provided at the venue.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 2",
-          time: "03:00 PM",
-          title: "Round 3 Results",
-          description: "Top 10 teams announced for the final round.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 2",
-          time: "03:00 PM - 04:00 PM",
-          title: "Games & Activities",
-          description: "Engaging activities for participants.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 2",
-          time: "05:30 PM - 06:00 PM",
-          title: "Evening Snacks",
-          description: "Refreshments served to all participants.",
-          status: "upcoming",
-        },
-        {
-          day: "Day 2",
-          time: "06:00 PM",
-          title: "Final Judging (Round 4)",
-          description: "Top 10 teams present their final solutions to the judges.",
-          status: "upcoming",
-          location: "Seminar Hall",
-        },
-        {
-          day: "Day 2",
-          time: "07:30 PM",
-          title: "Final Results & Closing Ceremony",
-          description: "Winners announced followed by closing remarks.",
-          status: "upcoming",
-        },
-      ],
-    },
-    // TODO: Add more days if your event spans 3+ days
-  ];
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="timeline" className="py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-
-        {/* Section header */}
+    <section id="timeline" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="max-w-5xl mx-auto" ref={containerRef}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-24"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
-            Timeline
+          <h2 className="text-4xl md:text-6xl font-black mb-4 uppercase tracking-tighter" style={{ color: "var(--foreground)"}}>
+            Event <span style={{ color: "var(--primary)"}}>Timeline</span>
           </h2>
-
-
-          {/* Legend */}
-          <div className="flex items-center justify-center gap-6 mt-6 text-xs font-medium" style={{ color: "rgba(232,232,240,0.5)" }}>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full" style={{ background: "var(--primary)" }} /> Upcoming</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-400" /> Live</span>
-            <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-gray-500" /> Completed</span>
-          </div>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "rgba(200,200,210,0.7)" }}>
+            Our 24-hour journey from ideation to final pitch.
+          </p>
         </motion.div>
 
-        {/* Timeline days */}
-        {schedule.map((group) => (
-          <DayGroup key={group.day} day={group.day} events={group.events} />
-        ))}
+        <div className="relative">
+          {/* Static Background Line */}
+          <div className="absolute left-2 sm:left-1/2 transform sm:-translate-x-1/2 top-0 bottom-0 w-1 rounded-full" style={{ background: "var(--border)" }} />
+          
+          {/* Animated Scroll Progress Line */}
+          <motion.div 
+            className="absolute left-2 sm:left-1/2 transform sm:-translate-x-1/2 top-0 w-1 rounded-full z-0 origin-top"
+            style={{ background: "linear-gradient(to bottom, var(--primary), var(--secondary))", height: lineHeight }} 
+          />
 
-        {/* Bottom note */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center text-xs mt-4"
-          style={{ color: "rgba(232,232,240,0.3)" }}
-        >
-          {/* TODO: Update or remove this note */}
-          Schedule subject to change. Follow our social media for real-time updates.
-        </motion.p>
+          {schedule.map((group, groupIdx) => (
+            <div key={groupIdx} className="mb-20">
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="mb-10 sm:text-center w-full sm:mx-auto max-w-[200px] z-10 relative bg-[#0F1217] py-2"
+              >
+                <span className="px-6 py-2 rounded-full font-bold text-sm border uppercase tracking-wider" style={{ background: "var(--card-bg)", borderColor: "var(--border)", color: "var(--foreground)" }}>
+                  {group.day}
+                </span>
+              </motion.div>
+              
+              {group.events.map((event, eventIdx) => (
+                <TimelineCard key={`${groupIdx}-${eventIdx}`} event={event} index={eventIdx + (groupIdx * 3)} />
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
-};
-
-export default Timeline;
+}

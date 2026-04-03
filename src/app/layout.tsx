@@ -27,14 +27,21 @@ export const metadata: Metadata = {
   },
 };
 
+import SmoothScroll from "../components/SmoothScroll";
+import { Providers } from "../components/Providers";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${raleway.variable} scroll-smooth`}>
-      <body className="bg-black text-gray-100 antialiased overflow-x-hidden">
-        <PreloaderWrapper>
-          <Navbar />
-          {children}
-        </PreloaderWrapper>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${poppins.variable} ${raleway.variable}`}>
+      <body suppressHydrationWarning className="bg-black text-gray-100 antialiased overflow-x-hidden transition-colors duration-500 light-mode:bg-white light-mode:text-gray-900" style={{ background: "var(--background)", color: "var(--foreground)"}}>
+        <Providers>
+          <SmoothScroll>
+            <PreloaderWrapper>
+              <Navbar />
+              {children}
+            </PreloaderWrapper>
+          </SmoothScroll>
+        </Providers>
       </body>
     </html>
   );

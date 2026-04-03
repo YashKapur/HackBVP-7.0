@@ -4,6 +4,8 @@ import { useEffect, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useJudgeMode } from "./Providers";
+import { FaGavel } from "react-icons/fa";
 
 const glassBar =
   "rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.12] to-white/[0.04] shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl ring-1 ring-white/10";
@@ -12,6 +14,8 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  const { judgeMode, toggleJudgeMode } = useJudgeMode();
 
   const handleHomeNavigation = (e: MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/") {
@@ -89,13 +93,24 @@ export function Navbar() {
                 ))}
               </div>
 
-              <Link
-                href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 shadow-[0_0_20px_rgba(207,42,68,0.30)]"
-                style={{ background: "var(--primary)" }}
-              >
-                Register Now
-              </Link>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={toggleJudgeMode}
+                  className={`p-2.5 rounded-full border transition-colors shadow-sm flex items-center gap-2 ${judgeMode ? 'bg-[var(--primary)] border-[var(--primary)] text-white' : 'border-white/20 hover:bg-white/10 text-[var(--foreground)]'}`}
+                  aria-label="Toggle Judge Mode"
+                >
+                  <FaGavel className="w-4 h-4" />
+                  {judgeMode && <span className="text-xs font-bold leading-none hidden sm:inline">JUDGE MODE</span>}
+                </button>
+
+                <Link
+                  href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white whitespace-nowrap transition-all duration-200 hover:opacity-90 shadow-[0_0_20px_rgba(207,42,68,0.30)]"
+                  style={{ background: "var(--primary)" }}
+                >
+                  Register Now
+                </Link>
+              </div>
             </div>
 
             {/* Mobile: logo | menu */}

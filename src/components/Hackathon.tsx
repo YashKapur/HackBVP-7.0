@@ -1,111 +1,159 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Space_Grotesk } from "next/font/google";
-
-const spaceGrotesk = Space_Grotesk({ weight: ["400", "600"], subsets: ["latin"] });
+import { useState } from "react";
+import { FaLaptopCode, FaLeaf, FaRobot } from "react-icons/fa";
 
 export function Hackathon() {
-
+  const [selectedTrack, setSelectedTrack] = useState<number | null>(null);
 
   const features = [
     {
-      // TODO: Replace title and description with your own hackathon highlight
-      title: "Challenges",
-      description: "Tackle real-world problems in environmental technology, sustainable development, and green energy. Bring your A-game and code a solution that makes a difference.",
-      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />,
+      id: 1,
+      title: "FinTech & Web3",
+      description: "Revolutionize finance using decentralized tech and cutting-edge financial algorithms.",
+      icon: <FaLaptopCode className="w-8 h-8" />,
+      detailedInfo: {
+        problem: "Design trustless escrow services and high-frequency trading bots.",
+        examples: ["DeFi micro-lending platform", "Blockchain credential verification", "AI Stock predictor"]
+      }
     },
     {
-      // TODO: Replace title and description
-      title: "24 Hours of Hacking",
-      description: "From ideation to implementation, you'll have 24 hours to turn your ideas into reality with mentorship from industry experts.",
-      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />,
+      id: 2,
+      title: "Sustainability",
+      description: "Tackle real-world problems in environmental technology, sustainable development, and green energy.",
+      icon: <FaLeaf className="w-8 h-8" />,
+      detailedInfo: {
+        problem: "Create scalable platforms to measure and mitigate carbon footprints for individual households.",
+        examples: ["Carbon offset marketplace", "IoT smart waste management", "Solar output optimizer"]
+      }
     },
     {
-      // TODO: Replace title and description
-      title: "Prizes",
-      description: "Win exciting prizes, internships, and mentorship opportunities with top companies. Your innovation could be the next big thing!",
-      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />,
+      id: 3,
+      title: "AI & Neural Networks",
+      description: "Leverage machine learning to build intelligent systems that disrupt traditional workflows.",
+      icon: <FaRobot className="w-8 h-8" />,
+      detailedInfo: {
+        problem: "Build accessible AI agents that can assist with daily complex computing tasks.",
+        examples: ["Diagnostic medical AI", "Automated code reviewers", "Generative music producer"]
+      }
     },
   ];
 
   return (
-    <section id="hackathon" className="relative py-16 overflow-hidden">
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 rounded-full blur-3xl opacity-10 animate-float pointer-events-none" style={{ background: "var(--primary)" }} />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 rounded-full blur-3xl opacity-10 animate-float pointer-events-none" style={{ background: "var(--secondary)", animationDelay: "4s" }} />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="relative p-8 lg:p-12">
-
-          {/* Banner image — TODO: Add your own banner to /public/ and update src */}
-          <motion.div
-            className="w-full max-w-3xl mx-auto mb-12 rounded-3xl overflow-hidden flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ maxHeight: '40vh' }}
-          >
-            {/*
-              TODO: Replace /your-banner.png with your actual hackathon banner.
-              Recommended size: 1200x400px, PNG or JPG.
-              Drop the file into /public/ first.
-            */}
-            <div
-              className="w-full h-48 rounded-3xl flex items-center justify-center border"
-              style={{ borderColor: "var(--border)", background: "var(--card-bg)" }}
+    <div className="relative py-12 overflow-hidden z-10 w-full">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 z-20">
+        
+        {/* Feature cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.id}
+              className="p-8 rounded-2xl border cursor-pointer relative group overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+              style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              onClick={() => setSelectedTrack(feature.id)}
             >
-              <img src="/banner.jpeg" alt="hackathon banner" className="w-full h-full object-cover" />
-            </div>
-          </motion.div>
-
-          {/* Feature cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                className="p-6 rounded-xl border"
-                style={{ background: "var(--card-bg)", borderColor: "var(--border)" }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <div
+                className="w-16 h-16 mb-6 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-lg"
+                style={{ background: "var(--primary)", color: "white" }}
               >
-                <div
-                  className="w-12 h-12 mb-4 rounded-full flex items-center justify-center"
-                  style={{ background: "rgba(207,42,68,0.12)" }}
-                >
-                  <svg className="w-6 h-6" style={{ color: "var(--primary)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    {feature.icon}
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                <p style={{ color: "rgba(232,232,240,0.6)" }}>{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA buttons */}
-          <div className="mt-12 text-center flex flex-col sm:flex-row gap-4 justify-center">
-            {/* TODO: Update href to your registration link */}
-            <button
-              className="px-8 py-3.5 rounded-full font-bold text-white transition-all duration-200 hover:opacity-90"
-              style={{ background: "var(--primary)" }}
-              onClick={() => window.open("https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge", "_blank")}
-            >
-              Register Now
-            </button>
-            {/* TODO: Update href to your hackathon detail page */}
-            <Link
-              href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
-              className="px-8 py-3.5 rounded-full font-bold border transition-all duration-200 hover:bg-white/5"
-              style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
-            >
-              Learn More
-            </Link>
-          </div>
-
+                {feature.icon}
+              </div>
+              <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--foreground)" }}>{feature.title}</h3>
+              <p className="leading-relaxed" style={{ color: "rgba(232,232,240,0.6)" }}>{feature.description}</p>
+              
+              <div className="mt-6 flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-colors duration-300" style={{ color: "var(--primary)" }}>
+                Explore Track <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Modal Overlay */}
+        <AnimatePresence>
+          {selectedTrack && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm pointer-events-auto"
+              onClick={() => setSelectedTrack(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="w-full max-w-2xl rounded-3xl p-8 shadow-2xl relative border"
+                style={{ background: "var(--bg-secondary)", borderColor: "var(--border)" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedTrack(null)}
+                  className="absolute top-6 right-6 text-2xl text-white/50 hover:text-white leading-none"
+                >
+                  &times;
+                </button>
+
+                {features.filter(f => f.id === selectedTrack).map(track => (
+                  <div key={track.id}>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center text-white" style={{ background: "var(--primary)" }}>
+                        {track.icon}
+                      </div>
+                      <h2 className="text-3xl font-black" style={{ color: "var(--foreground)" }}>{track.title}</h2>
+                    </div>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="text-sm uppercase tracking-widest font-bold mb-2" style={{ color: "var(--primary)" }}>Problem Statement</h4>
+                        <p className="text-lg leading-relaxed" style={{ color: "rgba(232,232,240,0.8)" }}>{track.detailedInfo.problem}</p>
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm uppercase tracking-widest font-bold mb-3" style={{ color: "var(--secondary)" }}>Example Ideas</h4>
+                        <ul className="space-y-2">
+                          {track.detailedInfo.examples.map((ex, i) => (
+                            <li key={i} className="flex items-center gap-3 text-base" style={{ color: "rgba(232,232,240,0.7)" }}>
+                              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--secondary)" }} />
+                              {ex}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* CTA buttons */}
+        <div className="mt-16 text-center flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="https://unstop.com/o/KH6O231?lb=nxBNmQKY&utm_medium=Share&utm_source=hackbvpe37162&utm_campaign=Online_coding_challenge" target="_blank" rel="noopener noreferrer"
+            className="px-10 py-4 rounded-full font-bold text-white transition-all duration-300 hover:scale-105 shadow-xl"
+            style={{ background: "var(--primary)", boxShadow: "0 0 24px rgba(207,42,68,0.4)" }}
+          >
+            Register Now
+          </Link>
+          <Link
+            href="/hackathon"
+            className="px-10 py-4 rounded-full font-bold border transition-all duration-300 hover:bg-white/5"
+            style={{ borderColor: "var(--border)", color: "var(--foreground)" }}
+          >
+            View All Rules
+          </Link>
+        </div>
+
       </div>
-    </section>
+    </div>
   );
 }

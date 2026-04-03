@@ -28,6 +28,19 @@
   --card-bg: rgba(22,27,36,0.85);    /* dark card background */
 }
 
+.light-mode {
+  --background: #FFFFFF;
+  --bg-secondary: #F3F4F6;
+  --foreground: #111827;
+  --primary: #CF2A44; 
+  --primary-dark: #AF263C; 
+  --secondary: #1E8C7A;
+  --accent: #1E8C7A;
+  --muted: #9CA3AF;
+  --border: rgba(0,0,0,0.1);
+  --card-bg: rgba(255,255,255,0.85);
+}
+
 /* Custom Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0) translateX(0); }

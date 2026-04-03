@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PromptingIsAllYouNeed } from "../components/ui/animated-hero-section";
+import { CountdownTimer } from "./ui/CountdownTimer";
+import { InfiniteMarquee } from "./ui/InfiniteMarquee";
+import { MagneticButton } from "./ui/MagneticButton";
 
 // Typewriter cycles through an array of words
 function TypewriterWords({ words }: { words: string[] }) {
@@ -76,20 +79,21 @@ export function Hero() {
                 <span>📍 Online / BVCOE</span>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
-                <Link
+                <MagneticButton
                   href="/hackathon"
-                  className="w-full sm:w-auto text-center px-7 py-3 rounded-full font-bold text-white text-sm sm:text-base transition-all duration-200 hover:opacity-90 hover:scale-[1.02] shadow-lg"
+                  className="w-full sm:w-auto text-center px-7 py-3 rounded-full font-bold text-white text-sm sm:text-base transition-all duration-300 hover:scale-105 shadow-lg group relative overflow-hidden"
                   style={{ background: "var(--primary)", boxShadow: "0 0 24px rgba(207,42,68,0.45)" }}
                 >
-                  Tracks
-                </Link>
-                <Link
+                  <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+                  <span className="relative z-10">Tracks</span>
+                </MagneticButton>
+                <MagneticButton
                   href="/events"
-                  className="w-full sm:w-auto text-center px-7 py-3 rounded-full font-semibold text-sm sm:text-base border transition-all duration-200 hover:bg-white/10"
+                  className="w-full sm:w-auto text-center px-7 py-3 rounded-full font-semibold text-sm sm:text-base border transition-all duration-300 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]"
                   style={{ borderColor: "rgba(255,255,255,0.2)", color: "var(--foreground)" }}
                 >
                   Timeline
-                </Link>
+                </MagneticButton>
               </div>
             </div>
           </motion.div>
@@ -114,7 +118,12 @@ export function Hero() {
         <div className="absolute top-1/4 left-1/3 w-96 h-96 rounded-full blur-3xl opacity-10 animate-float pointer-events-none" style={{ background: "var(--primary)" }} />
         <div className="absolute bottom-1/4 right-1/4 w-72 h-72 rounded-full blur-3xl opacity-10 animate-float pointer-events-none" style={{ background: "var(--secondary)", animationDelay: "4s" }} />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        {/* Infinite Marquee in the background */}
+        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none flex items-center justify-center mix-blend-screen overflow-hidden">
+          <InfiniteMarquee />
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center w-full">
 
           {/* Eyebrow badge */}
          <motion.div
@@ -137,7 +146,7 @@ export function Hero() {
 >
   <div className="flex items-center justify-center gap-5">
     <div className="relative h-16 w-16 sm:h-20 sm:w-20">
-      <Image src="/logo.png" alt="HackBVP logo" fill className="object-contain" priority />
+      <Image src="/logo.png" alt="HackBVP logo" fill className="object-contain drop-shadow-[0_0_15px_rgba(207,42,68,0.5)]" priority />
     </div>
     <TypewriterWords words={typewriterWords} />
   </div>
@@ -148,11 +157,26 @@ export function Hero() {
   initial={{ opacity: 0, y: 16 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.6, delay: 0.4 }}
-  className="text-2xl md:text-3xl max-w-3xl mx-auto mb-14 leading-relaxed"
-  style={{ color: "rgba(232,232,240,0.6)" }}
+  className="text-2xl md:text-3xl max-w-3xl mx-auto mb-10 leading-relaxed font-bold tracking-wide"
+  style={{ color: "rgba(232,232,240,0.9)", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
 >
   Build Beyond Boundaries.
 </motion.p>
+
+<motion.div
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.5, delay: 0.5 }}
+  className="flex flex-col items-center mt-12"
+>
+  <p 
+    className="text-2xl md:text-3xl max-w-3xl mx-auto mb-6 leading-relaxed font-bold tracking-wide"
+    style={{ color: "rgba(232,232,240,0.9)", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
+  >
+    Hackathon starts in
+  </p>
+  <CountdownTimer targetDate="2026-04-09T00:00:00" />
+</motion.div>
         </div>
       </div>
     </section>

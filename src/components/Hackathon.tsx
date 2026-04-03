@@ -46,7 +46,7 @@ export function Hackathon() {
               className="w-full h-48 rounded-3xl flex items-center justify-center border"
               style={{ borderColor: "var(--border)", background: "var(--card-bg)" }}
             >
-              <img src="/unstopbanner.jpeg" alt="hackathon banner" className="w-full h-full object-cover" />
+              <img src="/unstopbanner.png" alt="hackathon banner" className="w-full h-full object-cover" />
             </div>
           </motion.div>
 

@@ -8,9 +8,11 @@ interface ProblemStatementCardProps {
   theme: string;
   index: number;
   icon: string;
+  downloadLink: string;
 }
 
-const ProblemStatementCard: React.FC<ProblemStatementCardProps> = ({ title, description, theme, index, icon }) => {
+
+const ProblemStatementCard: React.FC<ProblemStatementCardProps> = ({ title, description, theme, index, icon, downloadLink}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -27,12 +29,13 @@ const ProblemStatementCard: React.FC<ProblemStatementCardProps> = ({ title, desc
           </h3>
           <p className="text-[#DAD9D5] flex-grow mb-3 leading-relaxed text-sm">{description}</p>
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="mt-auto w-full py-2 px-4 bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 text-white font-semibold rounded-lg transition-all duration-300 border border-white/20 text-sm"
-          >
-            Download Problem Statement
-          </motion.button>
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  onClick={() => window.open(downloadLink, '_blank')}  // add this
+  className="mt-auto w-full py-2 px-4 ..."
+>
+  Download Problem Statement
+</motion.button>
         </div>
       </div>
     </motion.div>

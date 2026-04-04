@@ -78,14 +78,14 @@ const ProblemStatements: React.FC = () => {
       description: "Protect systems, data, and people in an increasingly connected world. Think threat detection, secure communication, or privacy-first applications.",
       theme: "bg-gradient-to-br from-[#CF2A44] to-[#AF263C]",
       icon: "🔐",
-      downloadLink: "/Hackdomains-5.pdf",
+      downloadLink: "/Hackdomains-6.pdf",
     },
     {
       title: "EdTech & Social Impact",
       description: "Use technology to democratize education or drive meaningful social change. Accessibility tools, learning platforms, or community-driven applications.",
       theme: "bg-gradient-to-br from-[#1E8C7A] to-[#166B5F]",
       icon: "🎓",
-      downloadLink: "/Hackdomains-6.pdf",
+      downloadLink: "/Hackdomains-5.pdf",
     }
     ,
   ];

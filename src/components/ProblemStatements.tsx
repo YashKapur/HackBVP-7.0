@@ -41,47 +41,50 @@ const ProblemStatementCard: React.FC<ProblemStatementCardProps> = ({ title, desc
 
 const ProblemStatements: React.FC = () => {
   const problemStatements = [
-    // TODO: Replace all entries with your actual problem tracks
-    // Each entry needs: title, description, theme (gradient class), icon (emoji)
+ 
     {
       title: "AI & Machine Learning",
       description: "Build intelligent systems that learn, predict, or automate. Think smart tools, recommendation engines, NLP applications, or computer vision solutions.",
       theme: "bg-gradient-to-br from-[#CF2A44] to-[#AF263C]",
       icon: "🤖",
+      downloadLink: "/problem-statement.pdf",
     },
     {
       title: "Fintech & Web3",
       description: "Reimagine finance, payments, or decentralized systems. From digital banking tools to blockchain-based applications and smart contracts.",
       theme: "bg-gradient-to-br from-[#1E8C7A] to-[#166B5F]",
       icon: "💸",
+      downloadLink: "/problem-statement-sustainability.pdf",
     },
     {
       title: "Health & Well-being",
       description: "Technology that improves physical or mental health outcomes. Telemedicine, fitness tracking, mental health support, or healthcare accessibility tools.",
       theme: "bg-gradient-to-br from-[#CF2A44] to-[#AF263C]",
       icon: "🔬",
+      downloadLink: "/problem-statement-sustainability.pdf",
     },
     {
       title: "Sustainability & Smart Cities",
       description: "Solutions tackling climate, energy, waste, or urban infrastructure. Build for a greener, more connected world.",
       theme: "bg-gradient-to-br from-[#1E8C7A] to-[#166B5F]",
       icon: "🌱",
-      downloadLink: "/problem-statement-sustainability.pdf",  // TODO: replace with actual link to problem statement PDF
+      downloadLink: "/problem-statement-sustainability.pdf",
     },
     {
       title: "Cybersecurity & Privacy",
       description: "Protect systems, data, and people in an increasingly connected world. Think threat detection, secure communication, or privacy-first applications.",
       theme: "bg-gradient-to-br from-[#CF2A44] to-[#AF263C]",
       icon: "🔐",
+      downloadLink: "/problem-statement-sustainability.pdf",
     },
     {
       title: "EdTech & Social Impact",
       description: "Use technology to democratize education or drive meaningful social change. Accessibility tools, learning platforms, or community-driven applications.",
       theme: "bg-gradient-to-br from-[#1E8C7A] to-[#166B5F]",
       icon: "🎓",
+      downloadLink: "/problem-statement-sustainability.pdf",
     }
     ,
-    // TODO: Add or remove tracks as needed
   ];
 
   return (

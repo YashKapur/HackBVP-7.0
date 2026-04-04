@@ -28,7 +28,7 @@ const socials = [
 // BVCOE coordinates
 const BVCOE_LAT = 28.6448;
 const BVCOE_LNG = 77.0682;
-const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=Bharati+Vidyapeeth+College+of+Engineering+Paschim+Vihar+Delhi`;
+const MAPS_URL = `https://share.google/VVDRqQuEKUQtgKooD`;
 
 // Static map via OpenStreetMap tile — no API key needed
 const STATIC_MAP = `https://staticmap.openstreetmap.de/staticmap.php?center=${BVCOE_LAT},${BVCOE_LNG}&zoom=15&size=800x300&maptype=mapnik&markers=${BVCOE_LAT},${BVCOE_LNG},red`;

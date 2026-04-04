@@ -17,7 +17,7 @@ function MonoFontLoader() {
 }
 
 // ─── COUNTDOWN LOGIC ─────────────────────────────────────────────────────────
-const TARGET = new Date("2026-04-09T23:30:00+05:30").getTime();
+const TARGET = new Date("2026-04-09T08:00:00+05:30").getTime();
 const START = new Date("2026-04-01T00:00:00+05:30").getTime();
 
 function useCountdown() {
